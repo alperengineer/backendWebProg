@@ -1,20 +1,20 @@
-var mongoose = require('mongoose');
-var dbURI = 'mongodb://localhost/mekanbul';
+var mongoose = require( 'mongoose');
+var dbURI='mongodb+srv://aokucukcal:+123456+@cluster0.xzj7kv5.mongodb.net/mekanbul';
+// var dbURI = 'mongodb://localhost/mekanbul';
 mongoose.connect(dbURI);
-mongoose.connection.on("connceted", function (){
-    // MongoDB üzerinden default olarak ayarlı connected olarak  kalmalı hep
-    console.log(db.dbURI+" adresine bağlandı.");
+mongoose.connection.on("connected",function(){
+    console.log(dbURI+" adresine bağlandı");
 });
-mongoose.connection.on("error", function (){
-    console.log("Bağlantıda hata var.");
+mongoose.connection.on("error",function(){
+    console.log("bağlantıda hata");
 });
-mongoose.connection.on("disconnceted", function (){
-    console.log("bağlantı koptu.");
+mongoose.connection.on("disconnected",function(){
+    console.log(" bağlantı koptu");
 });
-process.on("SIGNINT", function(){
-    mongoose.connection.close();
-    console.log("uygulama kapatıldı.");
-    procces.exit(0);
-});
+//uygulama kapandığında kapat
+process.on("SIGINT",function(){
+    mongoose.connection.closed();
+    console.log("Uygulama kapatıldı");
+    process.exit(0);
+})
 require("./venue");
- 
